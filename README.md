@@ -3,9 +3,11 @@
 [Link to Round 2 presentation](https://drive.google.com/drive/folders/1hIzmvwV8768GBlMIOUHCc7sBxU7Y09kN?usp=sharing)
 
 #### Table of contents
+
 [TOC]
 
 ## Methodology
+
 <ol>
 <li>Removing null values
 <li>Removing data from days where volume traded was below a certain threshold, to avoid days when stock wasn't actively traded.
@@ -25,8 +27,10 @@ ReLU is chosen as the activation function to avoid underflow error due to vanish
 5. Stacked LSTM or not
 Stacked LSTM is prefferable for sequence prediction problems, these allow for more complex models .
 6. Choice of Evaluation Metric
-For a numeric regression problem, we have limited evaluation metrics. The chosen parameters are Root Mean Square Error and Mean Square Error.
-$RMSE = \sqrt{Σ ( Yᵢ - Ŷᵢ ) ²\over N }$
+For a numeric regression problem, we have limited evaluation metrics. The chosen parameters are Root Mean Square Error and Mean Square Error.</br>
+
+$ RMSE = \sqrt{Σ ( Yᵢ - Ŷᵢ ) ²\over N } $
+
 $ MSE = {Σ ( Yᵢ - Ŷᵢ ) ²\over N} $
 
 <hr>
@@ -34,6 +38,7 @@ $ MSE = {Σ ( Yᵢ - Ŷᵢ ) ²\over N} $
 ## Network Architecture
 
 2 LSTM layers are used with 2 dropout layers with dropout ratio =0.5, which indicates that 50% of neurons are randomly dropped during training, to avoid overfitting.<br>
+
 ![](/Beat-The-Market/images/model_summary.jpg)
 
 <hr>
@@ -42,12 +47,15 @@ $ MSE = {Σ ( Yᵢ - Ŷᵢ ) ²\over N} $
 Since the ratios are based on historical data, it is important to note that this does not necessarily indicate future performance, and one ratio should not be the only factor relied upon for investing decisions.
 
 ### Sharpe Ratio
+
 $ Sₐ = {R_{p}-r_{f}\over\sigma_{a}}$
+
 Where $R_{p}$ is the return on portfolio,  $r_{f}$ is the risk free return of portfolio and $\sigma_{a}$ is the standard deivation of expected returns.
 
 Sharpe ratio is defined as difference over time between expected returns and benchmark, which is usually the government bond rate divided by the standard deviation in returns.
 
 ### Sortino Ratio
+
 $ Sortino = {R_{p}-r_{f}\over\sigma_{d}}$
 
 Where $ \sigma_{d} $ is the negative downside of portfolio
@@ -63,33 +71,39 @@ Also known as Reward-to-Volatility ratio, it is the risk-adjusted measure of ret
 Beta measures the tendency of a portfolio's return to change in response to changes in return for the overall market.
 
 ### Cumulative returns
+
 $Cumulative Return = {Current Price-Original Price\over Original Price}$
 
 Total Change in investment price over a set time.
 Taxes are ignored in these calculations.
 
 ### Max Drawdown
+
 $MDD={Trough Value -Peak Value\over Peak Value}$
 
 A maximum drawdown (MDD) is the maximum observed loss from a peak to a trough of a portfolio, before a new peak is attained
 
 
 ## Instructions to run file
+
 <ol>
 <li>Download the predictor.py file
 <li>Check if xgboost is installed locally, if not type "pip install xgboost" on command window.
 <li>Close the matplotlib figure to see the ratios calculated.
 </ol>
+
 ### Libraries and versions
+
 Library | Version
 ---|---|
-matplotlib|3.6.2
-seaborn|0.11.2
-numpy|1.23.2
-pandas|1.4.3
-sklearn|1.1.2
-keras|2.10.0
-xgboost|1.7.4
+matplotlib|3.6.2|
+seaborn|0.11.2|
+numpy|1.23.2|
+pandas|1.4.3|
+sklearn|1.1.2|
+keras|2.10.0|
+xgboost|1.7.4|
+
 <hr>
 
 ## Results
