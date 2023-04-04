@@ -1,13 +1,34 @@
 # Stock predictor using Recurrent Neural Network
 
-[Link to Round 2 presentation](https://drive.google.com/drive/folders/1hIzmvwV8768GBlMIOUHCc7sBxU7Y09kN?usp=sharing)
+[Link to Final Project Presentation](https://www.canva.com/design/DAFfHN1wFoo/9yFiEDgxaCdU4FkWLmVd4A/edit)
 
-#### Table of contents
+[Link to python code](https://github.com/aryan1113/Beat-The-Market/blob/main/predictor.py)
+
+### Table of contents
 
 [TOC]
 
-## Methodology
+## Instructions to run file
 
+<ol>
+<li>Download the predictor.py file
+<li>Check if xgboost is installed locally, if not type "pip install xgboost" on command window.
+<li>Close the matplotlib figure to see the ratios calculated.
+</ol>
+
+## Libraries and versions
+Library | Version
+---|---|
+matplotlib|3.6.2
+seaborn|0.11.2
+numpy|1.23.2
+pandas|1.4.3
+sklearn|1.1.2
+keras|2.10.0
+xgboost|1.7.4
+<hr>
+
+## Methodology
 <ol>
 <li>Removing null values
 <li>Removing data from days where volume traded was below a certain threshold, to avoid days when stock wasn't actively traded.
@@ -27,11 +48,11 @@ ReLU is chosen as the activation function to avoid underflow error due to vanish
 5. Stacked LSTM or not
 Stacked LSTM is prefferable for sequence prediction problems, these allow for more complex models .
 6. Choice of Evaluation Metric
-For a numeric regression problem, we have limited evaluation metrics. The chosen parameters are Root Mean Square Error and Mean Square Error.</br>
+For a numeric regression problem, we have limited evaluation metrics. The chosen parameters are Root Mean Square Error and Mean Square Error.
 
-$ RMSE = \sqrt{Σ ( Yᵢ - Ŷᵢ ) ²\over N } $
+$RMSE = \sqrt{Σ ( Yᵢ - Ŷᵢ ) ²\over N }$
 
-$ MSE = {Σ ( Yᵢ - Ŷᵢ ) ²\over N} $
+$MSE = {Σ ( Yᵢ - Ŷᵢ ) ²\over N}$
 
 <hr>
 
@@ -39,16 +60,17 @@ $ MSE = {Σ ( Yᵢ - Ŷᵢ ) ²\over N} $
 
 2 LSTM layers are used with 2 dropout layers with dropout ratio =0.5, which indicates that 50% of neurons are randomly dropped during training, to avoid overfitting.<br>
 
-![](/Beat-The-Market/images/model_summary.jpg)
+![model_summary](https://user-images.githubusercontent.com/87320561/229703257-8ee313d4-8634-4098-a37d-20d8aa03bf56.jpg)
 
 <hr>
 
 ## What do the ratios mean ?
+
 Since the ratios are based on historical data, it is important to note that this does not necessarily indicate future performance, and one ratio should not be the only factor relied upon for investing decisions.
 
 ### Sharpe Ratio
 
-$ Sₐ = {R_{p}-r_{f}\over\sigma_{a}}$
+$Sₐ = {R_{p}-r_{f}\over\sigma_{a}}$
 
 Where $R_{p}$ is the return on portfolio,  $r_{f}$ is the risk free return of portfolio and $\sigma_{a}$ is the standard deivation of expected returns.
 
@@ -56,9 +78,9 @@ Sharpe ratio is defined as difference over time between expected returns and ben
 
 ### Sortino Ratio
 
-$ Sortino = {R_{p}-r_{f}\over\sigma_{d}}$
+$Sortino = {R_{p}-r_{f}\over\sigma_{d}}$
 
-Where $ \sigma_{d} $ is the negative downside of portfolio
+Where $\sigma_{d}$ is the negative downside of portfolio
 Difference over time between expected returns and benchmark, which is usually the government bond rate divided by only the negative standard deviation in returns.
 
 Because the Sortino ratio focuses only on the negative deviation of a portfolio's returns from the mean, it is thought to give a better view of a portfolio's risk-adjusted performance since positive volatility is a benefit.
@@ -84,37 +106,11 @@ $MDD={Trough Value -Peak Value\over Peak Value}$
 A maximum drawdown (MDD) is the maximum observed loss from a peak to a trough of a portfolio, before a new peak is attained
 
 
-## Instructions to run file
 
-<ol>
-<li>Download the predictor.py file
-<li>Check if xgboost is installed locally, if not type "pip install xgboost" on command window.
-<li>Close the matplotlib figure to see the ratios calculated.
-</ol>
-
-### Libraries and versions
-
-Library | Version
----|---|
-matplotlib|3.6.2|
-seaborn|0.11.2|
-numpy|1.23.2|
-pandas|1.4.3|
-sklearn|1.1.2|
-keras|2.10.0|
-xgboost|1.7.4|
-
-<hr>
 
 ## Results
 
 We have trained the network on data from Stock A (historical data present for around 10years, 3000+ data points) for 50epochs and from the table below we can decipher the signifance of dropout layers in preventing overfitting.
-
-Graph showing prediction (in Blue) by LSTM with Dropout Layers  and True Value of stock (in yellow)
-![LSTM photo](/Beat-The-Market/images/Stock%20A%20LSTM%20with%20dropout.png)
-
-Graph showing the prediction by LSTM without Droupout (shows overfitting)
-![LSTM Without dropout](/Beat-The-Market/images/Stock%20A%20LSTM%20without%20dropout.png)
 
 ### Tabular Comparsion of Ratios
 
@@ -128,4 +124,23 @@ Treynor |-0.0090| -0.0067
 Cumulative Returns |5.1008| 3.8568
 Max Drawdown |1.9066| 1.5081
 Highest Actual Return | 0.1378| 0.1330
+
+
+---
+
+
+### Graph depicting model performance
+Graph showing prediction (in Blue) by LSTM with Dropout Layers  and True Value of stock (in yellow)
+
+![Stock A LSTM with dropout](https://user-images.githubusercontent.com/87320561/229703187-56851281-94ab-4877-9c2e-dc9bf01873c5.png)
+
+Graph showing the prediction by LSTM without Droupout (shows overfitting)
+
+![Stock A LSTM without dropout](https://user-images.githubusercontent.com/87320561/229703111-f6d4cce2-c9d2-4b40-9358-078a9f576dc8.png)
+
+### Issues with the model
+1. Dataset size is quite small (3000rows)
+2. The model prediction shows negative bias for all instances.
+3. LSTM's are slow to run as we cannot parallelize the training due to recurrance relation.
+4. Stock D only has 748rows.
 
